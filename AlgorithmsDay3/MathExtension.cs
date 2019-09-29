@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AlgorithmsDay3
+namespace AlgorithmsDay3Task1
 {
     public class MathExtension
     {

@@ -1,4 +1,4 @@
-using AlgorithmsDay3;
+using AlgorithmsDay3Task1;
 using NUnit.Framework;
 
 namespace Tests
