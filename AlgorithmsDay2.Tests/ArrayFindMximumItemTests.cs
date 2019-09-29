@@ -6,7 +6,7 @@ using System;
 namespace Tests
 {
 
-    public class ArrayExtensionTests
+    public class ArrayFindMximumItemTests
     {
         [TestCase(new int[] { -3, -2, -8 }, ExpectedResult = -2)]
         [TestCase(new int[] { 63, 56, 1, 5, 7889, 10000 }, ExpectedResult = 10000)]
@@ -32,19 +32,8 @@ namespace Tests
         [Test]
         public void TestFindMximumWithMaxArray()
         {
-            (int[] array,int expectedResult) = MaxArray.Creat();
+            (int[] array, int expectedResult) = MaxArray.Creat();
             Assert.AreEqual(expectedResult, ArrayExtension.FindMximumItem(array));
-        }
-
-
-        [TestCase(new int[] { -3, -2, -8, -5, 0 }, ExpectedResult = 2)]
-        [TestCase(new int[] { 10, -2, 5, 3, 2 }, ExpectedResult = 1)]
-        [TestCase(new int[] { 10, 0, 0, 1, 1, 1, 1, 9 }, ExpectedResult = 4)]
-        [TestCase(new int[] { 63, 56, 1, 5, 7889, 10000 }, ExpectedResult = null)]
-
-        public int? TestFindBalanceIndex(int[] array)
-        {
-            return ArrayExtension.FindBalanceIndex(array);
         }
 
     }
