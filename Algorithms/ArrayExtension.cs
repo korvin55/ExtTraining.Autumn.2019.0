@@ -19,7 +19,7 @@ namespace Algorithms
                 isSort = false;
                 for (int current = iterator.GetStart(); !iterator.IsEnd(); current = iterator.GetCurrent())
                 {
-                    
+
                     int next = iterator.GetNext();
                     if (comparator.Compare(array[current], array[next]) > 0)
                     {
@@ -82,7 +82,6 @@ namespace Algorithms
             }
 
         }
-
     }
 
     public interface IComparer
@@ -188,7 +187,7 @@ namespace Algorithms
 
         public int GetPreview()
         {
-            if(current - step >= start)
+            if (current - step >= start)
             {
                 return current - step;
             }
@@ -197,7 +196,7 @@ namespace Algorithms
 
         public bool IsEnd()
         {
-            if( current >= end)
+            if (current >= end)
             {
                 return true;
             }

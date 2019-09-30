@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AlgorithmsDay2
 {
@@ -28,23 +29,24 @@ namespace AlgorithmsDay2
             {
                 return null;
             }
+            int sumAllAlements = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                sumAllAlements += array[i];
+            }
             return FindBalance(1);
 
             int? FindBalance(int balanceIndex)
+
             {
                 if (balanceIndex < array.Length - 1)
                 {
                     int resultLeft = 0;
-                    int resultRight = 0;
                     for (int i = 0; i < balanceIndex; i++)
                     {
                         resultLeft += array[i];
                     }
-                    for (int i = balanceIndex + 1; i < array.Length; i++)
-                    {
-                        resultRight += array[i];
-                    }
-                    if (resultLeft == resultRight)
+                    if (resultLeft == sumAllAlements - resultLeft - array[balanceIndex])
                     {
                         return balanceIndex;
                     }
@@ -52,6 +54,23 @@ namespace AlgorithmsDay2
                 }
                 return null;
             }
+        }
+
+        public static List<int> FilterArrayByKey(int[] array, int key)
+        {
+            ControlInputArray(array);
+            ControlInputKey(key);
+
+            List<int> filterArray = new List<int>();
+            IPredicate filter = new FilterPredicate();
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (filter.IsContain(array[i], key))
+                {
+                    filterArray.Add(array[i]);
+                }
+            }
+            return filterArray;
         }
 
         private static void ControlInputArray(int[] array)
@@ -66,10 +85,35 @@ namespace AlgorithmsDay2
             }
         }
 
+        private static void ControlInputKey(int key)
+        {
+            if (key < 0 || key > 9)
+            {
+                throw new ArgumentOutOfRangeException(nameof(key) + "is out of range");
+            }
+        }
+    }
 
+    public interface IPredicate
+    {
+        bool IsContain(int number, int key);
+    }
 
+    public class FilterPredicate : IPredicate
+    {
+        public bool IsContain(int number, int key)
+        {
+            while (number > 0)
+            {
+                if (number % 10 == key)
+                {
+                    return true;
+                }
 
+                number /= 10;
+            }
 
-
+            return false;
+        }
     }
 }
