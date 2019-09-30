@@ -79,9 +79,13 @@ namespace AlgorithmsDay2
             {
                 throw new ArgumentNullException(nameof(array) + "can't be null");
             }
-            if (array.Length == int.MaxValue || array.Length == 0)
+            if (array.Length == 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(array) + "length out of range ");
+                throw new ArgumentException(nameof(array) + "length is 0 ");
+            }
+            if (array.Length > int.MaxValue )
+            {
+                throw new ArgumentException(nameof(array) + "length is very long ");
             }
         }
 

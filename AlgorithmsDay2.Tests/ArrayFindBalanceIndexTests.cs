@@ -18,10 +18,17 @@ namespace Tests
         }
 
         [Test]
-        public void TestFindBalanceIndexWithThrowNull()
+        public void TestFindBalanceIndexWithNull()
         {
             Assert.That(() => ArrayExtension.FindBalanceIndex(null), Throws.TypeOf<System.ArgumentNullException>());
         }
+
+        [Test]
+        public void TestFindBalanceIndexWithArgumentException()
+        {
+            Assert.That(() => ArrayExtension.FindBalanceIndex(new int[] { }), Throws.TypeOf<System.ArgumentException>());
+        }
+
 
     }
 }

@@ -18,15 +18,15 @@ namespace Tests
         }
 
         [Test]
-        public void TestFindMximumItemWithThrowNull()
+        public void TestFindMximumItemWithNull()
         {
             Assert.That(() => ArrayExtension.FindMximumItem(null), Throws.TypeOf<System.ArgumentNullException>());
         }
 
         [Test]
-        public void TestFindMximumItemWithThrowOutOfRange()
+        public void TestFindMximumItemWithArgumentException()
         {
-            Assert.That(() => ArrayExtension.FindMximumItem(new int[] { }), Throws.TypeOf<System.ArgumentOutOfRangeException>());
+            Assert.That(() => ArrayExtension.FindMximumItem(new int[] { }), Throws.TypeOf<System.ArgumentException>());
         }
 
         [Test]
