@@ -17,5 +17,11 @@ namespace Tests
             return ArrayExtension.FindBalanceIndex(array);
         }
 
+        [Test]
+        public void TestFindBalanceIndexWithThrowNull()
+        {
+            Assert.That(() => ArrayExtension.FindBalanceIndex(null), Throws.TypeOf<System.ArgumentNullException>());
+        }
+
     }
 }

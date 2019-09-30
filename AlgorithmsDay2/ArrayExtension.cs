@@ -56,7 +56,7 @@ namespace AlgorithmsDay2
             }
         }
 
-        public static List<int> FilterArrayByKey(int[] array, int key)
+        public static int[] FilterArrayByKey(int[] array, int key)
         {
             ControlInputArray(array);
             ControlInputKey(key);
@@ -65,12 +65,12 @@ namespace AlgorithmsDay2
             IPredicate filter = new FilterPredicate();
             for (int i = 0; i < array.Length; i++)
             {
-                if (filter.IsContain(array[i], key))
+                if (filter.IsContain(Math.Abs(array[i]), key))
                 {
                     filterArray.Add(array[i]);
                 }
             }
-            return filterArray;
+            return filterArray.ToArray();
         }
 
         private static void ControlInputArray(int[] array)
