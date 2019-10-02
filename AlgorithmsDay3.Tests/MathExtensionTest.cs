@@ -25,10 +25,31 @@ namespace Tests
         [TestCase(0.001, -2, 0.0001)]
         [TestCase(0.01, 2, -1)]
 
-
+        
         public void TestFindNthRootWithThrow(double a, int n, double accurancy)
         {
             Assert.That(() => MathExtension.FindNthRoot(a, n, accurancy), Throws.TypeOf<System.ArgumentException>());
+        }
+        [TestCase( 4, 2, 8, 0, ExpectedResult = 2)]
+        [TestCase( 40, 4, 20, 9, ExpectedResult = 1)]
+        [TestCase( 5, 5, 55, 5, ExpectedResult = 5)]
+        [TestCase(10, 2, ExpectedResult = 2)]
+        [TestCase(-15, 3, 30, -60, ExpectedResult = 3)]
+        [TestCase(0, 0, 1, ExpectedResult = 1)]
+        public int TestFindGcdByEuclidean(params int[] array)
+        {
+            return MathExtension.FindGcdByEuclidean(array);
+        }
+
+        [TestCase(4, 2, 8, 0, ExpectedResult = 2)]
+        [TestCase(40, 4, 20, 9, ExpectedResult = 1)]
+        [TestCase(5, 5, 55, 5, ExpectedResult = 5)]
+        [TestCase(10, 2, ExpectedResult = 2)]
+        [TestCase(-15, 3, 30, -60, ExpectedResult = 3)]
+        [TestCase(0, 0, 1, ExpectedResult = 1)]
+        public int TestFindGcdByStein(params int[] array)
+        {
+            return MathExtension.FindGcdByStein(array);
         }
 
 
