@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AlgorithmsDay3Task2
 {
@@ -6,99 +7,96 @@ namespace AlgorithmsDay3Task2
     {
         public static int FindPreviousLessThan(int number)
         {
-            if (number < 0 || number >= int.MaxValue)
-            {
-                throw new ArgumentOutOfRangeException( nameof(number) + " is out of range");
-            }
-
+            ControlInputPositiveNumber(number);
             if (number <= 11)
             {
                 return 0;
             }
 
-            return Next(number);
+            return FindLess(number);
         }
 
-        private static int СalculateLess(int number)
+        private static int FindLess(int number)
         {
             int[] arrayNumber = new int[number.ToString().Length];
-            int numberStart = number;
-            for (int i = 0; i < arrayNumber.Length; i++)
+            for (int i = arrayNumber.Length - 1; i > -1; i--)
             {
                 arrayNumber[i] = number % 10;
                 number /= 10;
             }
-            Array.Sort(arrayNumber);
-            if (arrayNumber[0] == 0)
+            int indexFirst = FindIndex(arrayNumber);
+            if (indexFirst == -1)
             {
-                for(int i = 1; i < arrayNumber.Length; i++)
-                {
-                    if (arrayNumber[i] != 0)
-                    {
-                        int temp = arrayNumber[i];
-                        arrayNumber[i] = arrayNumber[0];
-                        arrayNumber[0] = temp;
-                        break;
-                    }
-                }
+                return 0;
             }
+            int indexSecond = FindMaxFail(arrayNumber, indexFirst);
+            Swap(ref arrayNumber[indexFirst], ref arrayNumber[indexSecond]);
+            SortAscending(arrayNumber, indexFirst, arrayNumber.Length);
+
             int result = 0;
             for (int i = 0; i < arrayNumber.Length; i++)
             {
                 result += (int)(arrayNumber[i] * Math.Pow(10, arrayNumber.Length - 1 - i));
             }
-            if (result == numberStart)
-            {
-                return 0;
-            }
-            return result;
-        }
-
-        private static int Next(int number)
-        {
-            int[] buff = new int[number.ToString().Length];
-            for (int i = buff.Length - 1; i > -1; i--)
-            {
-                buff[i] = number % 10;
-                number /= 10;
-            }
-
-            int index = FindIndex(buff);
-
-            if (index == -1)
-            {
-                return -1;
-            }
-
-            int temp;
-
-            if (index < buff.Length - 1)
-            {
-                temp = buff[index];
-                buff[index] = buff[index + 1];
-                buff[index + 1] = temp;
-                Array.Sort(buff, index + 1, buff.Length - index - 1);
-            }
-
-            int result = 0;
-            for (int i = 0; i < buff.Length; i++)
-            {
-                result += (int)(buff[i] * Math.Pow(10, buff.Length - 1 - i));
-            }
 
             return result;
         }
 
-        private static int FindIndex(int[] temp)
+        private static int FindIndex(int[] arrayNumber)
         {
-            for (int i = temp.Length - 1; i > 0; i--)
+            for (int i = arrayNumber.Length - 1; i > 0; i--)
             {
-                if (temp[i] < temp[i - 1])
+                if (arrayNumber[i] < arrayNumber[i - 1])
                 {
-                    return (i );
+                    return (i - 1);
                 }
             }
             return -1;
+        }
+
+        private static int FindMaxFail(int[] arrayNumber, int indexFirst)
+        {
+            int maxValue = int.MinValue;
+            int index = -1;
+            for (int i = indexFirst + 1; i < arrayNumber.Length; i++)
+            {
+                if (arrayNumber[i] > maxValue)
+                {
+                    maxValue = arrayNumber[i];
+                    index = i;
+                }
+            }
+            return index;
+        }
+
+        static void Swap(ref int first, ref int second)
+        {
+            var temp = first;
+            first = second;
+            second = temp;
+        }
+
+        private static void SortAscending(int[] array, int start, int end)
+        {
+            for (int i = start + 2; i < end; i++)
+            {
+                int key = array[i];
+                int j = i;
+                while ((j >= start + 2) && array[j - 1] < key)
+                {
+                    Swap(ref array[j - 1], ref array[j]);
+                    j--;
+                }
+                array[j] = key;
+            }
+        }
+
+        private static void ControlInputPositiveNumber(int positiveNumber)
+        {
+            if (positiveNumber < 0 || positiveNumber >= int.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(positiveNumber) + " is out of range");
+            }
         }
     }
 }
