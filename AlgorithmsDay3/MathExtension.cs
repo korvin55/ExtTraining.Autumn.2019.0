@@ -67,11 +67,13 @@ namespace AlgorithmsDay3Task1
                 throw new ArgumentException(nameof(array) + "length is very long ");
             }
         }
+
+        #region Task2,D4_Task2
         /// <summary>
         /// find GCD by Euclidean
         /// </summary>
         /// <param name="array"></param>
-        /// <returns></returns>
+        /// <returns></returns>     
         public static int FindGcdByEuclidean(params int[] array)
         {
             ControlInputArray(array);
@@ -165,7 +167,7 @@ namespace AlgorithmsDay3Task1
                 return GcdBySteinValue((numberFirst - numberSecond) >> 1, numberSecond);
             return GcdBySteinValue((numberSecond - numberFirst) >> 1, numberFirst);
         }
-
+        #endregion Task2,D4_Task2
 
     }
 }

@@ -5,6 +5,12 @@ namespace AlgorithmsDay2
 {
     public class ArrayExtension
     {
+        #region Task2,D2_Task2
+        /// <summary>
+        /// Find Maximum Value in array 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public static int FindMximumItem(int[] array)
         {
             ControlInputArray(array);
@@ -21,7 +27,14 @@ namespace AlgorithmsDay2
             }
 
         }
+        #endregion Task2,D2_Task2
 
+        #region Task3,D2_Task3
+        /// <summary>
+        /// Find index, which has the same elements's sum on both sides
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public static int? FindBalanceIndex(int[] array)
         {
             ControlInputArray(array);
@@ -55,25 +68,32 @@ namespace AlgorithmsDay2
                 return null;
             }
         }
+        #endregion Task3,D2_Task3
 
-        public static int[] FilterArrayByKey(int[] array, int key)
+        #region Task1,D4_Task1 (D2_Task4)
+        /// <summary>
+        /// filter array with Key
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public static int[] FilterArrayByKey(int[] array, IPredicate filter)
         {
             ControlInputArray(array);
-            ControlInputKey(key);
 
             List<int> filterArray = new List<int>();
-            IPredicate filter = new FilterPredicate();
             for (int i = 0; i < array.Length; i++)
             {
-                if (filter.IsContain(Math.Abs(array[i]), key))
+                if (filter.IsContain(Math.Abs(array[i])))
                 {
                     filterArray.Add(array[i]);
                 }
             }
             return filterArray.ToArray();
         }
+        #endregion Task1,D4_Task1 (D2_Task4)
 
-        private static void ControlInputArray(int[] array)
+        public static void ControlInputArray(int[] array)
         {
             if (array == null)
             {
@@ -83,12 +103,38 @@ namespace AlgorithmsDay2
             {
                 throw new ArgumentException(nameof(array) + "length is 0 ");
             }
-            if (array.Length > int.MaxValue )
+            if (array.Length > int.MaxValue)
             {
                 throw new ArgumentException(nameof(array) + "length is very long ");
             }
         }
+    }
 
+    public interface IPredicate
+    {
+        bool IsContain(int number);
+    }
+
+    public class FilterPredicateByKey : IPredicate
+    {
+        private int key;
+        public FilterPredicateByKey(int key)
+        {
+            ControlInputKey(key);
+            this.key = key;
+        }
+        public bool IsContain(int number)
+        {
+            while (number > 0)
+            {
+                if (number % 10 == key)
+                {
+                    return true;
+                }
+                number /= 10;
+            }
+            return false;
+        }
         private static void ControlInputKey(int key)
         {
             if (key < 0 || key > 9)
@@ -98,26 +144,30 @@ namespace AlgorithmsDay2
         }
     }
 
-    public interface IPredicate
+    public class FilterPredicatePalindrome : IPredicate
     {
-        bool IsContain(int number, int key);
-    }
-
-    public class FilterPredicate : IPredicate
-    {
-        public bool IsContain(int number, int key)
+        public bool IsContain(int number)
         {
-            while (number > 0)
+            int[] arrayNumber = new int[number.ToString().Length];
+            if (arrayNumber.Length == 1)
             {
-                if (number % 10 == key)
-                {
-                    return true;
-                }
-
+                return false;
+            }
+            for (int i = arrayNumber.Length - 1; i > -1; i--)
+            {
+                arrayNumber[i] = number % 10;
                 number /= 10;
             }
-
-            return false;
+            bool flag = true;
+            for (int i = 0; i < arrayNumber.Length / 2; i++)
+            {
+                if (arrayNumber[i] != arrayNumber[arrayNumber.Length - 1 - i])
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            return flag;
         }
     }
 }
